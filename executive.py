@@ -19,7 +19,7 @@ def commands(args):
         "change": change,
         "creat": creat_dict,
         "search": search,
-        "help": s,
+        "help": s, 
         }
     if args == "help":
         print(dic[args])
@@ -28,7 +28,10 @@ def commands(args):
     
 while True:
     decision = input("Commnad(type help for help): ")
-    commands(decision)
+    if decision == "exit":
+        break
+    else:
+        commands(decision)
     
     
 

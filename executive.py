@@ -1,8 +1,8 @@
 from includes.commands import *
 from includes.addition import creat_dict
 
-def commands(args):
-    s = """commands:
+def commands(decision):
+    help_commands = """commands:
                      show - list of contacts
                      add - add new contact
                      delete - delete contact
@@ -19,12 +19,12 @@ def commands(args):
         "change": change,
         "creat": creat_dict,
         "search": search,
-        "help": s, 
+        "help": help_commands, 
         }
-    if args == "help":
-        print(dic[args])
+    if decision == "help":
+        print(dic[decision])
     else:
-        dic[args]()
+        dic[decision]()
     
 while True:
     decision = input("Commnad(type help for help): ")

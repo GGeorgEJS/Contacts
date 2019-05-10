@@ -1,14 +1,16 @@
 import pickle
 def creat_dict():
     dict_ = {}
-    with open("dict.pickle", "wb") as dic:
-        pickle.dump(dict_, dic)
-
+    with open("dict.pickle", "wb") as dict_of_contacts:
+        pickle.dump(dict_, dict_of_contacts)
+        #Создаеться файл в который будет сохраняться словарь 
 def get_dict():
-    with open("dict.pickle", 'rb') as dic:
-            dict_ = pickle.load(dic)
+    with open("dict.pickle", 'rb') as dict_of_contacts:
+            dict_ = pickle.load(dict_of_contacts)
             return dict_
-
-def refresh(dic):
+        #Достаем словарь с файла и возвращаем его
+        
+def refresh(dict_of_contacts):
     with open("dict.pickle", "wb") as dict_:
-        pickle.dump(dic, dict_)
+        pickle.dump(dict_of_contacts, dict_)
+        #Получаем обновленный словарь и перезаписыаем его в файл

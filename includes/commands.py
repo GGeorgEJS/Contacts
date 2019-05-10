@@ -2,69 +2,78 @@ import re
 from includes.addition import get_dict
 from includes.addition import refresh
 def add():    
-        while True:
-                name = input("Name: ")
-                phone = input("Phone: ")
-                dic = get_dict()
-                name_proverka = re.search("[0-9]", name)
-                phone_proverka = re.search("[a-zA-Z]", phone)
-                if not bool(name_proverka):
-                        if not bool(phone_proverka):
-                                if name in dic.keys():
-                                        print("Already exist, try again")
-                                        continue
-                                else:
-                                        dic[name] = phone
-                                        break
-                        else:
-                                print("Phone number isn't correct, try again!")
-                                continue
+#Функция создает новый контакт
+    while True:
+        name = input("Name: ")
+        phone = input("Phone: ")
+        dict_of_contacts = get_dict() 
+        name_test = re.search("[0-9]", name)
+        phone_test = re.search("[a-zA-Z]", phone)
+        if not bool(name_test):
+            if not bool(phone_test):
+                if name in dict_of_contacts.keys():
+                    print("Already exist, try again")
+                    continue
                 else:
-                        print("Wrong name, try again!")
-                        continue
-        print("Added new contact")
-        refresh(dic)
+                    dict_of_contacts[name] = phone
+                    print(f"Added new contact: {name}")
+                    break
+            else:
+                print("Phone number isn't correct, try again!")
+                continue
+        else:
+            print("Wrong name, try again!")
+            continue
+    refresh(dict_of_contacts)
 
 def change():
-    dic = get_dict()
+#Функция изменяет номер выбраного контакта
+    dict_of_contacts = get_dict()
     name = input("Which change: ")
     phone = input("New number: ")
-    for key in dic:
-        if key == name:
-            dic[name] = phone
-    print(f"Contact {name} has been changed")
-    refresh(dic)
+    if name in dict_of_contacts:
+        dict_of_contacts[name] = phone
+        print(f"Contact {name} has been changed")
+    else:
+        print("Contact doesn't exist")
+    refresh(dict_of_contacts)
 
 def delete():
+#Функция удаляет один контакт
     name = input("Delete name: ")
-    dic = get_dict()
-    if name in dic.keys():
-        dic.pop(name)
+    dict_of_contacts = get_dict()
+    if name in dict_of_contacts:
+        dict_of_contacts.pop(name)
         print(f"Contact {name} has been deleted")
     else:
         print("Wrong name")
-    refresh(dic)
+    refresh(dict_of_contacts)
 
 def search():
+#Функция находит совпадения 
     res = ''
-    dic = get_dict()
+    dict_of_contacts = get_dict()
     name = input("Search: ")
-    if name in dic:
-        res += "{}{:>10}\n".format(name, dic[name])
-
+    for key in dict_of_contacts.keys():
+        if name in key:
+                res += "{}{:>10}\n".format(key, dict_of_contacts[key])
     print(res)
 
 def show_one():
+#Функция выводит один контакт на экран
     res = ""
     name = input("Name: ")
-    dic = get_dict()
-    if name in dic.keys():
-        res += "{}{:>10}".format(name, dic[name])
-    return print("Contact: ", res)
+    dict_of_contacts = get_dict()
+    if name in dict_of_contacts.keys():
+        res += "{}{:>10}".format(name, dict_of_contacts[name])
+        print("Contact: ", res)
+    else:
+        print("Contact doesn't exist")
 
 def show():
+#Функция показывает список контактов
     res = ''
-    dic = get_dict()
-    for key in dic:
-        res += "{:>5}{:>10}\n".format(key, dic[key])
-    return print("All contacts:\n",res)
+    dict_of_contacts = get_dict()
+    for key in dict_of_contacts:
+        res += "{:>5}{:>10}\n".format(key, dict_of_contacts[key])
+    print("All contacts:\n",res)
